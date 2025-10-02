@@ -26,12 +26,15 @@ namespace SmartPayMobileApp_Backend.Data
                 entity.Property(e => e.Email).IsRequired().HasMaxLength(50).HasColumnName("email");
                 entity.Property(e => e.PhoneNumber).IsRequired().HasMaxLength(15).HasColumnName("phoneNumber");
                 entity.Property(e => e.PasswordHash).IsRequired().HasMaxLength(512).HasColumnName("passwordHash");
+                entity.Property(e => e.CnicNumber).IsRequired().HasMaxLength(13).HasColumnName("cnicNumber");
+                entity.Property(e => e.ConsumerNumber).IsRequired().HasMaxLength(30).HasColumnName("consumerNumber");
                 entity.Property(e => e.CreatedAt).HasDefaultValueSql("GETUTCDATE()").HasColumnName("createdAt");
                 entity.Property(e => e.UpdatedAt).HasColumnName("updatedAt");
                 entity.Property(e => e.IsActive).HasColumnName("isActive");
                 
                 // Index for better performance
                 entity.HasIndex(e => e.Email).IsUnique();
+                entity.HasIndex(e => e.ConsumerNumber).IsUnique();
                 entity.HasIndex(e => e.PhoneNumber).IsUnique();
             });
         }

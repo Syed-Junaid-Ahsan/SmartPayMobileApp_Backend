@@ -22,6 +22,14 @@ namespace SmartPayMobileApp_Backend.Models.Entities
         // Store only the password hash in the database (no plain password)
         [Required]
         public string PasswordHash { get; set; } = string.Empty;
+
+        [Required]
+        [MaxLength(13)]
+        public string CnicNumber { get; set; } = string.Empty;
+
+        [Required]
+        [MaxLength(30)]
+        public string ConsumerNumber { get; set; } = string.Empty;
         
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime? UpdatedAt { get; set; }

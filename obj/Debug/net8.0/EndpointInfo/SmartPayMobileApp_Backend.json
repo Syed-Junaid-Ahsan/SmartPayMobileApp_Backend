@@ -344,6 +344,10 @@
           "password": {
             "type": "string",
             "nullable": true
+          },
+          "cnicNumber": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

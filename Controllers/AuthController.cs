@@ -22,8 +22,9 @@ namespace SmartPayMobileApp_Backend.Controllers
         {
             try
             {
-                var userId = await _authService.SignupAsync(request.name, request.phoneNumber, request.email, request.password);
-                return Created($"api/users/{userId}", new { id = userId });
+                var userId = await _authService.SignupAsync(request.name, request.phoneNumber, request.email, request.password, request.cnicNumber);
+                var response = new SignupResponse { id = userId, name = request.name, email = request.email, phoneNumber = request.phoneNumber };
+                return Created($"api/users/{userId}", response);
             }
             catch (ArgumentException ex)
             {
@@ -45,11 +46,11 @@ namespace SmartPayMobileApp_Backend.Controllers
         {
             try
             {
-                var valid = await _authService.ValidateUserAsync(request.email, request.password);
-                if (!valid) return Unauthorized(new { message = "Invalid credentials" });
+                var (isValid, consumerNumber) = await _authService.ValidateUserAsync(request.email, request.password);
+                if (!isValid) return Unauthorized(new { message = "Invalid credentials" });
 
-                // TODO: issue JWT token in future
-                return Ok(new { message = "Login successful" });
+                var response = new LoginResponse { consumerNumber = consumerNumber };
+                return Ok(response);
             }
             catch (Exception ex)
             {
