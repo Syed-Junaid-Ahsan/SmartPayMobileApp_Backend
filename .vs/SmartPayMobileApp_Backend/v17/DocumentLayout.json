@@ -3,16 +3,20 @@
   "WorkspaceRootPath": "E:\\SmartPayMobileApp_Backend\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{63D0EC95-3B6A-46ED-82D0-C2762009F194}|SmartPayMobileApp_Backend.csproj|e:\\smartpaymobileapp_backend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{63D0EC95-3B6A-46ED-82D0-C2762009F194}|SmartPayMobileApp_Backend.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{63D0EC95-3B6A-46ED-82D0-C2762009F194}|SmartPayMobileApp_Backend.csproj|e:\\smartpaymobileapp_backend\\services\\implementations\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{63D0EC95-3B6A-46ED-82D0-C2762009F194}|SmartPayMobileApp_Backend.csproj|solutionrelative:services\\implementations\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{63D0EC95-3B6A-46ED-82D0-C2762009F194}|SmartPayMobileApp_Backend.csproj|e:\\smartpaymobileapp_backend\\models\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{63D0EC95-3B6A-46ED-82D0-C2762009F194}|SmartPayMobileApp_Backend.csproj|solutionrelative:models\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{63D0EC95-3B6A-46ED-82D0-C2762009F194}|SmartPayMobileApp_Backend.csproj|e:\\smartpaymobileapp_backend\\services\\interfaces\\iauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{63D0EC95-3B6A-46ED-82D0-C2762009F194}|SmartPayMobileApp_Backend.csproj|solutionrelative:services\\interfaces\\iauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{63D0EC95-3B6A-46ED-82D0-C2762009F194}|SmartPayMobileApp_Backend.csproj|e:\\smartpaymobileapp_backend\\models\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{63D0EC95-3B6A-46ED-82D0-C2762009F194}|SmartPayMobileApp_Backend.csproj|solutionrelative:models\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{63D0EC95-3B6A-46ED-82D0-C2762009F194}|SmartPayMobileApp_Backend.csproj|e:\\smartpaymobileapp_backend\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -34,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 10,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -58,6 +62,19 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "E:\\SmartPayMobileApp_Backend\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "E:\\SmartPayMobileApp_Backend\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-03T09:49:34.612Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
               "Title": "IAuthService.cs",
               "DocumentMoniker": "E:\\SmartPayMobileApp_Backend\\Services\\Interfaces\\IAuthService.cs",
@@ -71,7 +88,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "UserDto.cs",
               "DocumentMoniker": "E:\\SmartPayMobileApp_Backend\\Models\\DTOs\\UserDto.cs",
               "RelativeDocumentMoniker": "Models\\DTOs\\UserDto.cs",
@@ -83,7 +100,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "ApplicationDbContext.cs",
               "DocumentMoniker": "E:\\SmartPayMobileApp_Backend\\Data\\ApplicationDbContext.cs",
               "RelativeDocumentMoniker": "Data\\ApplicationDbContext.cs",
@@ -95,7 +112,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "User.cs",
               "DocumentMoniker": "E:\\SmartPayMobileApp_Backend\\Models\\Entities\\User.cs",
               "RelativeDocumentMoniker": "Models\\Entities\\User.cs",
@@ -103,12 +120,11 @@
               "RelativeToolTip": "Models\\Entities\\User.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-02T07:53:42.119Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-02T07:53:42.119Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "AuthController.cs",
               "DocumentMoniker": "E:\\SmartPayMobileApp_Backend\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "Controllers\\AuthController.cs",
@@ -120,13 +136,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "AuthService.cs",
               "DocumentMoniker": "E:\\SmartPayMobileApp_Backend\\Services\\Implementations\\AuthService.cs",
               "RelativeDocumentMoniker": "Services\\Implementations\\AuthService.cs",
               "ToolTip": "E:\\SmartPayMobileApp_Backend\\Services\\Implementations\\AuthService.cs",
               "RelativeToolTip": "Services\\Implementations\\AuthService.cs",
-              "ViewState": "AgIAADMAAAAAAAAAAAAYwE8AAAA5AAAAAAAAAA==",
+              "ViewState": "AgIAADoAAAAAAAAAAAAwwEEAAABMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-01T07:54:56.183Z",
               "EditorCaption": ""
