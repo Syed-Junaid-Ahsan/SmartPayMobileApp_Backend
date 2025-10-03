@@ -1,0 +1,29 @@
+namespace SmartPayMobileApp_Backend.Models.DTOs
+{
+    public class BillDto
+    {
+        public int billId { get; set; }
+        public string billName { get; set; } = string.Empty;
+        public decimal amount { get; set; }
+        public DateTime issueDate { get; set; }
+        public DateTime dueDate { get; set; }
+        public DateTime expiryDate { get; set; }
+        public bool isPaid { get; set; }
+    }
+
+    public class CreateBillRequest
+    {
+        public string consumerNumber { get; set; } = string.Empty;
+        public string billName { get; set; } = string.Empty;
+        public decimal amount { get; set; }
+        public DateTime issueDate { get; set; }
+        public DateTime dueDate { get; set; }
+        public DateTime expiryDate { get; set; }
+    }
+
+    public class BillListResponse
+    {
+        public IEnumerable<BillDto> bills { get; set; } = Enumerable.Empty<BillDto>();
+    }
+}
+

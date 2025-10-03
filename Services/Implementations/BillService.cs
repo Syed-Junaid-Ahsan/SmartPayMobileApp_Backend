@@ -1,0 +1,81 @@
+using SmartPayMobileApp_Backend.Models.DTOs;
+using SmartPayMobileApp_Backend.Models.Entities;
+using SmartPayMobileApp_Backend.Repositories.Interfaces;
+using SmartPayMobileApp_Backend.Services.Interfaces;
+
+namespace SmartPayMobileApp_Backend.Services.Implementations
+{
+    public class BillService : IBillService
+    {
+        private readonly IBillRepository _billRepository;
+        private readonly IUserRepository _userRepository;
+
+        public BillService(IBillRepository billRepository, IUserRepository userRepository)
+        {
+            _billRepository = billRepository;
+            _userRepository = userRepository;
+        }
+
+        public async Task<BillDto> CreateAsync(CreateBillRequest request)
+        {
+            if (request.amount <= 0) throw new ArgumentException("Amount must be greater than zero");
+            if (request.dueDate < request.issueDate) throw new ArgumentException("dueDate must be on/after issueDate");
+            if (request.expiryDate < request.dueDate) throw new ArgumentException("expiryDate must be on/after dueDate");
+
+            var user = await _userRepository.GetByConsumerNumberAsync(request.consumerNumber);
+            if (user == null) throw new ArgumentException("Invalid consumerNumber");
+
+            var bill = new Bill
+            {
+                BillName = request.billName,
+                Amount = request.amount,
+                IssueDate = request.issueDate,
+                DueDate = request.dueDate,
+                ExpiryDate = request.expiryDate,
+                IsPaid = false,
+                UserId = user.Id
+            };
+
+            var created = await _billRepository.AddAsync(bill);
+            return MapToDto(created);
+        }
+
+        public async Task<IEnumerable<BillDto>> GetByConsumerNumberAsync(string consumerNumber)
+        {
+            var bills = await _billRepository.GetByConsumerNumberAsync(consumerNumber);
+            return bills.Select(MapToDto);
+        }
+
+        public async Task<BillDto?> GetByIdAsync(int billId)
+        {
+            var bill = await _billRepository.GetByIdAsync(billId);
+            return bill == null ? null : MapToDto(bill);
+        }
+
+        public async Task<bool> MarkPaidAsync(int billId)
+        {
+            var bill = await _billRepository.GetByIdAsync(billId);
+            if (bill == null) return false;
+
+            bill.IsPaid = true;
+            bill.UpdatedAt = DateTime.UtcNow;
+            await _billRepository.UpdateAsync(bill);
+            return true;
+        }
+
+        private static BillDto MapToDto(Bill bill)
+        {
+            return new BillDto
+            {
+                billId = bill.BillId,
+                billName = bill.BillName,
+                amount = bill.Amount,
+                issueDate = bill.IssueDate,
+                dueDate = bill.DueDate,
+                expiryDate = bill.ExpiryDate,
+                isPaid = bill.IsPaid
+            };
+        }
+    }
+}
+
