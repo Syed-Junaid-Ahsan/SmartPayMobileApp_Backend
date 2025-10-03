@@ -4,6 +4,8 @@ using SmartPayMobileApp_Backend.Repositories.Implementations;
 using SmartPayMobileApp_Backend.Repositories.Interfaces;
 using SmartPayMobileApp_Backend.Services.Implementations;
 using SmartPayMobileApp_Backend.Services.Interfaces;
+using SmartPayMobileApp_Backend.Repositories.Interfaces;
+using SmartPayMobileApp_Backend.Repositories.Implementations;
 
 namespace SmartPayMobileApp_Backend.Extensions
 {
@@ -17,10 +19,12 @@ namespace SmartPayMobileApp_Backend.Extensions
 
             // Repositories
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IBillRepository, BillRepository>();
 
             // Services
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IBillService, BillService>();
 
             return services;
         }

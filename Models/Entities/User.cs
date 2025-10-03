@@ -34,5 +34,7 @@ namespace SmartPayMobileApp_Backend.Models.Entities
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime? UpdatedAt { get; set; }
         public bool IsActive { get; set; } = true;
+
+        public ICollection<Bill> Bills { get; set; } = new List<Bill>();
     }
 }

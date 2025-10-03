@@ -10,6 +10,7 @@ namespace SmartPayMobileApp_Backend.Data
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Bill> Bills { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -36,6 +37,29 @@ namespace SmartPayMobileApp_Backend.Data
                 entity.HasIndex(e => e.Email).IsUnique();
                 entity.HasIndex(e => e.ConsumerNumber).IsUnique();
                 entity.HasIndex(e => e.PhoneNumber).IsUnique();
+            });
+
+            modelBuilder.Entity<Bill>(entity =>
+            {
+                entity.ToTable("Bills");
+                entity.HasKey(e => e.BillId);
+                entity.Property(e => e.BillId).HasColumnName("billId");
+                entity.Property(e => e.BillName).IsRequired().HasMaxLength(100).HasColumnName("billName");
+                entity.Property(e => e.Amount).HasColumnType("decimal(18,2)").HasColumnName("amount");
+                entity.Property(e => e.IssueDate).HasColumnName("issueDate");
+                entity.Property(e => e.DueDate).HasColumnName("dueDate");
+                entity.Property(e => e.ExpiryDate).HasColumnName("expiryDate");
+                entity.Property(e => e.IsPaid).HasColumnName("isPaid");
+                entity.Property(e => e.UserId).HasColumnName("userId");
+                entity.Property(e => e.CreatedAt).HasDefaultValueSql("GETUTCDATE()").HasColumnName("createdAt");
+                entity.Property(e => e.UpdatedAt).HasColumnName("updatedAt");
+
+                entity.HasOne<User>(b => b.User)
+                    .WithMany(u => u.Bills)
+                    .HasForeignKey(b => b.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasIndex(e => e.UserId);
             });
         }
     }
