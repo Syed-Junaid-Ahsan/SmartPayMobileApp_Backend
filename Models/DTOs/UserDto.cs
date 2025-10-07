@@ -34,10 +34,7 @@ namespace SmartPayMobileApp_Backend.Models.DTOs
 
     public class SignupResponse
     {
-        public int id { get; set; }
-        public string name { get; set; } = string.Empty;
-        public string email { get; set; } = string.Empty;
-        public string phoneNumber { get; set; } = string.Empty;
+        public string message { get; set; } = string.Empty;
     }
 
     public class LoginRequest
@@ -50,5 +47,9 @@ namespace SmartPayMobileApp_Backend.Models.DTOs
     {
         public string message { get; set; } = string.Empty;
         public int userId { get; set; }
+        public string name { get; set; } = string.Empty;
+        public string email { get; set; } = string.Empty;
+        public string phoneNumber { get; set; } = string.Empty;
+        public string cnicNumber { get; set; } = string.Empty;
     }
 }
