@@ -26,15 +26,11 @@ namespace SmartPayMobileApp_Backend.Models.Entities
         [Required]
         [MaxLength(13)]
         public string CnicNumber { get; set; } = string.Empty;
-
-        [Required]
-        [MaxLength(30)]
-        public string ConsumerNumber { get; set; } = string.Empty;
         
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime? UpdatedAt { get; set; }
         public bool IsActive { get; set; } = true;
 
-        public ICollection<Bill> Bills { get; set; } = new List<Bill>();
+        public ICollection<ConsumerNumber> ConsumerNumbers { get; set; } = new List<ConsumerNumber>();
     }
 }

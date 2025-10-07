@@ -26,6 +26,9 @@ namespace SmartPayMobileApp_Backend.Services.Implementations
             if (!IsValidCnic(cnicNumber))
                 throw new ArgumentException("Invalid CNIC format");
 
+            if (!IsValidPhoneNumber(phoneNumber))
+                throw new ArgumentException("Invalid Phone Number format");
+
             var existing = await _userRepository.GetByEmailAsync(email);
             if (existing != null)
                 throw new InvalidOperationException("Email already exists");
@@ -40,8 +43,6 @@ namespace SmartPayMobileApp_Backend.Services.Implementations
 
             var passwordHash = HashPassword(password);
 
-            var consumerNumber = $"6005{cnicNumber}";
-
             var user = new User
             {
                 Name = name,
@@ -49,21 +50,20 @@ namespace SmartPayMobileApp_Backend.Services.Implementations
                 Email = email,
                 PasswordHash = passwordHash,
                 CnicNumber = cnicNumber,
-                ConsumerNumber = consumerNumber,
             };
 
             await _userRepository.AddAsync(user);
             return user.Id;
         }
 
-        public async Task<(bool isValid, string consumerNumber)> ValidateUserAsync(string email, string password)
+        public async Task<(bool isValid, int userId)> ValidateUserAsync(string email, string password)
         {
             var user = await _userRepository.GetByEmailAsync(email);
             if (user == null || !user.IsActive)
-                return (false, string.Empty);
+                return (false, 0);
 
             var ok = VerifyPassword(password, user.PasswordHash);
-            return ok ? (true, user.ConsumerNumber) : (false, string.Empty);
+            return ok ? (true, user.Id) : (false, 0);
         }
 
         private static string HashPassword(string password)
@@ -108,6 +108,13 @@ namespace SmartPayMobileApp_Backend.Services.Implementations
             // exactly 13 digits
             var regex = new System.Text.RegularExpressions.Regex("^[0-9]{13}$");
             return regex.IsMatch(cnic);
+        }
+
+        private static bool IsValidPhoneNumber(string phoneNumber)
+        {
+            // exactly 13 digits
+            var regex = new System.Text.RegularExpressions.Regex("^(?:\\+92|0)[0-9]{10}$");
+            return regex.IsMatch(phoneNumber);
         }
     }
 }

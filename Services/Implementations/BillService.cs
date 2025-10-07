@@ -9,11 +9,13 @@ namespace SmartPayMobileApp_Backend.Services.Implementations
     {
         private readonly IBillRepository _billRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IConsumerNumberRepository _consumerNumberRepository;
 
-        public BillService(IBillRepository billRepository, IUserRepository userRepository)
+        public BillService(IBillRepository billRepository, IUserRepository userRepository, IConsumerNumberRepository consumerNumberRepository)
         {
             _billRepository = billRepository;
             _userRepository = userRepository;
+            _consumerNumberRepository = consumerNumberRepository;
         }
 
         public async Task<BillDto> CreateAsync(CreateBillRequest request)
@@ -22,8 +24,8 @@ namespace SmartPayMobileApp_Backend.Services.Implementations
             if (request.dueDate < request.issueDate) throw new ArgumentException("dueDate must be on/after issueDate");
             if (request.expiryDate < request.dueDate) throw new ArgumentException("expiryDate must be on/after dueDate");
 
-            var user = await _userRepository.GetByConsumerNumberAsync(request.consumerNumber);
-            if (user == null) throw new ArgumentException("Invalid consumerNumber");
+            var consumer = await _consumerNumberRepository.GetByNumberAsync(request.consumerNumber);
+            if (consumer == null) throw new ArgumentException("Invalid consumerNumber");
 
             var bill = new Bill
             {
@@ -33,7 +35,7 @@ namespace SmartPayMobileApp_Backend.Services.Implementations
                 DueDate = request.dueDate,
                 ExpiryDate = request.expiryDate,
                 IsPaid = false,
-                UserId = user.Id
+                ConsumerNumberId = consumer.ConsumerNumberId
             };
 
             var created = await _billRepository.AddAsync(bill);
@@ -43,6 +45,12 @@ namespace SmartPayMobileApp_Backend.Services.Implementations
         public async Task<IEnumerable<BillDto>> GetByConsumerNumberAsync(string consumerNumber)
         {
             var bills = await _billRepository.GetByConsumerNumberAsync(consumerNumber);
+            return bills.Select(MapToDto);
+        }
+
+        public async Task<IEnumerable<BillDto>> GetByConsumerNumberIdAsync(int consumerNumberId)
+        {
+            var bills = await _billRepository.GetByConsumerNumberIdAsync(consumerNumberId);
             return bills.Select(MapToDto);
         }
 

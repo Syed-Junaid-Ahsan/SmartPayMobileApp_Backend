@@ -6,8 +6,8 @@ namespace SmartPayMobileApp_Backend.Repositories.Interfaces
     {
         Task<Bill> AddAsync(Bill bill);
         Task<Bill?> GetByIdAsync(int billId);
-        Task<IEnumerable<Bill>> GetByUserIdAsync(int userId);
         Task<IEnumerable<Bill>> GetByConsumerNumberAsync(string consumerNumber);
+        Task<IEnumerable<Bill>> GetByConsumerNumberIdAsync(int consumerNumberId);
         Task<Bill> UpdateAsync(Bill bill);
     }
 }

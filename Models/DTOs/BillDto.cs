@@ -21,6 +21,28 @@ namespace SmartPayMobileApp_Backend.Models.DTOs
         public DateTime expiryDate { get; set; }
     }
 
+    public class ConsumerNumberDto
+    {
+        public int consumerNumberId { get; set; }
+        public string number { get; set; } = string.Empty;
+    }
+
+    public class RegisterConsumerNumberRequest
+    {
+        public int userId { get; set; }
+        public string consumerNumber { get; set; } = string.Empty;
+    }
+
+    public class RegisterConsumerNumberResponse
+    {
+        public string message { get; set; } = string.Empty;
+    }
+
+    public class ConsumerNumberListResponse
+    {
+        public IEnumerable<ConsumerNumberDto> consumerNumbers { get; set; } = Enumerable.Empty<ConsumerNumberDto>();
+    }
+
     public class BillListResponse
     {
         public IEnumerable<BillDto> bills { get; set; } = Enumerable.Empty<BillDto>();

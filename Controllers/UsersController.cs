@@ -9,11 +9,13 @@ namespace SmartPayMobileApp_Backend.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IConsumerNumberService _consumerNumberService;
         private readonly ILogger<UsersController> _logger;
 
-        public UsersController(IUserService userService, ILogger<UsersController> logger)
+        public UsersController(IUserService userService, IConsumerNumberService consumerNumberService, ILogger<UsersController> logger)
         {
             _userService = userService;
+            _consumerNumberService = consumerNumberService;
             _logger = logger;
         }
 
@@ -97,6 +99,45 @@ namespace SmartPayMobileApp_Backend.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error occurred while deleting user with id {UserId}", id);
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+        [HttpPost("{id}/consumer-numbers")] 
+        public async Task<ActionResult<RegisterConsumerNumberResponse>> RegisterConsumerNumber(int id, [FromBody] RegisterConsumerNumberRequest request)
+        {
+            try
+            {
+                if (id != request.userId) return BadRequest(new { message = "Mismatched userId" });
+                var result = await _consumerNumberService.RegisterConsumerNumberAsync(id, request.consumerNumber);
+                return Ok(result);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error registering consumer number for user {UserId}", id);
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+        [HttpGet("{id}/consumer-numbers")] 
+        public async Task<ActionResult<ConsumerNumberListResponse>> ListConsumerNumbers(int id)
+        {
+            try
+            {
+                var list = await _consumerNumberService.GetByUserIdAsync(id);
+                return Ok(new ConsumerNumberListResponse { consumerNumbers = list });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error listing consumer numbers for user {UserId}", id);
                 return StatusCode(500, "Internal server error");
             }
         }

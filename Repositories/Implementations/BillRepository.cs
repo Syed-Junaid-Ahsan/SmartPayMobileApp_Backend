@@ -26,16 +26,19 @@ namespace SmartPayMobileApp_Backend.Repositories.Implementations
             return await _context.Bills.FirstOrDefaultAsync(b => b.BillId == billId);
         }
 
-        public async Task<IEnumerable<Bill>> GetByUserIdAsync(int userId)
-        {
-            return await _context.Bills.Where(b => b.UserId == userId).ToListAsync();
-        }
 
         public async Task<IEnumerable<Bill>> GetByConsumerNumberAsync(string consumerNumber)
         {
             return await _context.Bills
-                .Include(b => b.User)
-                .Where(b => b.User != null && b.User.ConsumerNumber == consumerNumber)
+                .Include(b => b.ConsumerNumber)
+                .Where(b => b.ConsumerNumber != null && b.ConsumerNumber.Number == consumerNumber)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Bill>> GetByConsumerNumberIdAsync(int consumerNumberId)
+        {
+            return await _context.Bills
+                .Where(b => b.ConsumerNumberId == consumerNumberId)
                 .ToListAsync();
         }
 

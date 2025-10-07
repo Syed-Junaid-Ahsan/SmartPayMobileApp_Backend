@@ -46,10 +46,10 @@ namespace SmartPayMobileApp_Backend.Controllers
         {
             try
             {
-                var (isValid, consumerNumber) = await _authService.ValidateUserAsync(request.email, request.password);
+                var (isValid, userId) = await _authService.ValidateUserAsync(request.email, request.password);
                 if (!isValid) return Unauthorized(new { message = "Invalid credentials" });
 
-                var response = new LoginResponse { consumerNumber = consumerNumber };
+                var response = new LoginResponse { message = "Login successful", userId = userId };
                 return Ok(response);
             }
             catch (Exception ex)

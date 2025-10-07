@@ -18,8 +18,8 @@ namespace SmartPayMobileApp_Backend.Models.Entities
         public DateTime ExpiryDate { get; set; }
         public bool IsPaid { get; set; }
 
-        public int UserId { get; set; }
-        public User? User { get; set; }
+        public int ConsumerNumberId { get; set; }
+        public ConsumerNumber? ConsumerNumber { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime? UpdatedAt { get; set; }

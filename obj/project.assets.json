@@ -3761,11 +3761,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\SmartPayMobileApp_Backend\\SmartPayMobileApp_Backend.csproj",
+      "projectUniqueName": "E:\\SmartPayMobileApp_Backend\\SmartPayMobileApp_Backend\\SmartPayMobileApp_Backend.csproj",
       "projectName": "SmartPayMobileApp_Backend",
-      "projectPath": "E:\\SmartPayMobileApp_Backend\\SmartPayMobileApp_Backend.csproj",
+      "projectPath": "E:\\SmartPayMobileApp_Backend\\SmartPayMobileApp_Backend\\SmartPayMobileApp_Backend.csproj",
       "packagesPath": "C:\\Users\\teckn\\.nuget\\packages\\",
-      "outputPath": "E:\\SmartPayMobileApp_Backend\\obj\\",
+      "outputPath": "E:\\SmartPayMobileApp_Backend\\SmartPayMobileApp_Backend\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

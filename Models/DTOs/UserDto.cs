@@ -48,6 +48,7 @@ namespace SmartPayMobileApp_Backend.Models.DTOs
 
     public class LoginResponse
     {
-        public string consumerNumber { get; set; } = string.Empty;
+        public string message { get; set; } = string.Empty;
+        public int userId { get; set; }
     }
 }

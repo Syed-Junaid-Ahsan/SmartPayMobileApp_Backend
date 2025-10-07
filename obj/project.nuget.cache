@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "WY+4cdeW/mI=",
+  "dgSpecHash": "up3rUacykqM=",
   "success": true,
-  "projectFilePath": "E:\\SmartPayMobileApp_Backend\\SmartPayMobileApp_Backend.csproj",
+  "projectFilePath": "E:\\SmartPayMobileApp_Backend\\SmartPayMobileApp_Backend\\SmartPayMobileApp_Backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\teckn\\.nuget\\packages\\azure.core\\1.47.1\\azure.core.1.47.1.nupkg.sha512",
     "C:\\Users\\teckn\\.nuget\\packages\\azure.identity\\1.14.2\\azure.identity.1.14.2.nupkg.sha512",

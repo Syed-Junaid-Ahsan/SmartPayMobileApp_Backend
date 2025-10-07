@@ -8,6 +8,7 @@ namespace SmartPayMobileApp_Backend.Services.Interfaces
         Task<IEnumerable<BillDto>> GetByConsumerNumberAsync(string consumerNumber);
         Task<BillDto?> GetByIdAsync(int billId);
         Task<bool> MarkPaidAsync(int billId);
+        Task<IEnumerable<BillDto>> GetByConsumerNumberIdAsync(int consumerNumberId);
     }
 }
 

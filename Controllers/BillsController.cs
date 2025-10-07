@@ -32,6 +32,21 @@ namespace SmartPayMobileApp_Backend.Controllers
             }
         }
 
+        [HttpGet("consumer/{consumerNumberId}")]
+        public async Task<ActionResult<BillListResponse>> GetBillsByConsumerNumberId(int consumerNumberId)
+        {
+            try
+            {
+                var bills = await _billService.GetByConsumerNumberIdAsync(consumerNumberId);
+                return Ok(new BillListResponse { bills = bills });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error fetching bills for consumerNumberId {consumerNumberId}", consumerNumberId);
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
         [HttpGet("{billId}")]
         public async Task<ActionResult<BillDto>> GetBill(int billId)
         {

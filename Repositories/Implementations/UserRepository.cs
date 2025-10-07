@@ -27,11 +27,7 @@ namespace SmartPayMobileApp_Backend.Repositories.Implementations
                 .FirstOrDefaultAsync(u => u.Id == id && u.IsActive);
         }
 
-        public async Task<User?> GetByConsumerNumberAsync(string consumerNumber)
-        {
-            return await _context.Users
-                .FirstOrDefaultAsync(u => u.ConsumerNumber == consumerNumber && u.IsActive);
-        }
+        
 
         public async Task<User?> GetByPhoneNumberAsync(string phoneNumber)
         {
