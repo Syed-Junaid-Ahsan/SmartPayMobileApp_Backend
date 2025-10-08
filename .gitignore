@@ -1,37 +1,32 @@
-# Visual Studio
+# Visual Studio temporary files, build results, and caches
 .vs/
-bin/
-obj/
 *.user
 *.suo
 *.cache
-*.tmp
 *.db
-*.db-shm
-*.db-wal
-*suo
-*user
-*.userosscache
-*.sln.docstates
 *.v2
-*.metadata
-*.projects
 
-# Build results
-[Dd]ebug/
-[Rr]elease/
-x64/
-x86/
-bld/
-[Bb]in/
-[Oo]bj/
+# Build folders
+bin/
+obj/
 
-# Entity Framework
-Migrations/
+# Backup and layout files
+DocumentLayout*.json
+*.backup.json
 
 # Logs
 *.log
 
-# OS generated files
-.DS_Store
-Thumbs.db
+# User-specific files
+*.csproj.user
+*.rsuser
+*.sln.docstates
+
+# Ignore environment settings
+appsettings.Development.json
+.env
+
+# Misc
+*.tmp
+*.temp
+*.bak
