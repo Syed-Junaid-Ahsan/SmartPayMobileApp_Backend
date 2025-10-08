@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SmartPayMobileApp_Backend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+efecdc20b49f0556ec2311520717b6f2a053153c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+87fcc9bc19984ce6e10b6d11e4db46e716f20aee")]
 [assembly: System.Reflection.AssemblyProductAttribute("SmartPayMobileApp_Backend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SmartPayMobileApp_Backend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

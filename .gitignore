@@ -6,6 +6,16 @@ obj/
 *.suo
 *.cache
 *.tmp
+*.db
+*.db-shm
+*.db-wal
+*suo
+*user
+*.userosscache
+*.sln.docstates
+*.v2
+*.metadata
+*.projects
 
 # Build results
 [Dd]ebug/
