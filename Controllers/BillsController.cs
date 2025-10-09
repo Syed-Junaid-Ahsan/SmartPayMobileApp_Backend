@@ -33,12 +33,22 @@ namespace SmartPayMobileApp_Backend.Controllers
         }
 
         [HttpGet("consumer/{consumerNumberId}")]
-        public async Task<ActionResult<BillListResponse>> GetBillsByConsumerNumberId(int consumerNumberId)
+        public async Task<ActionResult<BillPagedResponse>> GetBillsByConsumerNumberId(int consumerNumberId, [FromQuery] int page = 1, [FromQuery] int pageSize = 10)
         {
             try
             {
-                var bills = await _billService.GetByConsumerNumberIdAsync(consumerNumberId);
-                return Ok(new BillListResponse { bills = bills });
+                var (items, totalCount) = await _billService.GetPagedByConsumerNumberIdAsync(consumerNumberId, page, pageSize);
+                var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+                return Ok(new BillPagedResponse
+                {
+                    items = items,
+                    totalCount = totalCount,
+                    page = page,
+                    pageSize = pageSize,
+                    totalPages = totalPages,
+                    hasNext = page < totalPages,
+                    hasPrevious = page > 1
+                });
             }
             catch (Exception ex)
             {

@@ -42,6 +42,19 @@ namespace SmartPayMobileApp_Backend.Repositories.Implementations
                 .ToListAsync();
         }
 
+        public async Task<(IEnumerable<Bill> items, int totalCount)> GetPagedByConsumerNumberIdAsync(int consumerNumberId, int page, int pageSize)
+        {
+            if (page < 1) page = 1;
+            if (pageSize < 1) pageSize = 10;
+
+            var query = _context.Bills.Where(b => b.ConsumerNumberId == consumerNumberId)
+                .OrderByDescending(b => b.IssueDate);
+
+            var totalCount = await query.CountAsync();
+            var items = await query.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            return (items, totalCount);
+        }
+
         public async Task<Bill> UpdateAsync(Bill bill)
         {
             _context.Bills.Update(bill);

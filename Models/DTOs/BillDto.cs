@@ -47,5 +47,20 @@ namespace SmartPayMobileApp_Backend.Models.DTOs
     {
         public IEnumerable<BillDto> bills { get; set; } = Enumerable.Empty<BillDto>();
     }
+
+    public class PagedResponse<T>
+    {
+        public IEnumerable<T> items { get; set; } = Enumerable.Empty<T>();
+        public int totalCount { get; set; }
+        public int page { get; set; }
+        public int pageSize { get; set; }
+        public int totalPages { get; set; }
+        public bool hasNext { get; set; }
+        public bool hasPrevious { get; set; }
+    }
+
+    public class BillPagedResponse : PagedResponse<BillDto>
+    {
+    }
 }
 

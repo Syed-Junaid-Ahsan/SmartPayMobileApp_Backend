@@ -54,6 +54,12 @@ namespace SmartPayMobileApp_Backend.Services.Implementations
             return bills.Select(MapToDto);
         }
 
+        public async Task<(IEnumerable<BillDto> items, int totalCount)> GetPagedByConsumerNumberIdAsync(int consumerNumberId, int page, int pageSize)
+        {
+            var (items, totalCount) = await _billRepository.GetPagedByConsumerNumberIdAsync(consumerNumberId, page, pageSize);
+            return (items.Select(MapToDto), totalCount);
+        }
+
         public async Task<BillDto?> GetByIdAsync(int billId)
         {
             var bill = await _billRepository.GetByIdAsync(billId);

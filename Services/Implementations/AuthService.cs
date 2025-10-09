@@ -61,9 +61,46 @@ namespace SmartPayMobileApp_Backend.Services.Implementations
             var user = await _userRepository.GetByEmailAsync(email);
             if (user == null || !user.IsActive)
                 return (false, 0);
+            //var ok = VerifyPassword(password, user.PasswordHash);
 
-            var ok = VerifyPassword(password, user.PasswordHash);
+            // Normalize potential Base64 UTF-16LE encoded password from frontend
+            var normalizedPassword = NormalizeIncomingPassword(password);
+
+            var ok = VerifyPassword(normalizedPassword, user.PasswordHash);
             return ok ? (true, user.Id) : (false, 0);
+        }
+
+        private static string NormalizeIncomingPassword(string incoming)
+        {
+            if (string.IsNullOrEmpty(incoming)) return incoming;
+
+            // Try to treat input as Base64 of UTF-16LE (Encoding.Unicode)
+            try
+            {
+                // Trim whitespace that may be added by transport
+                var trimmed = incoming.Trim();
+                // Base64 strings must have length % 4 == 0; pad if clearly missing padding
+                int mod4 = trimmed.Length % 4;
+                if (mod4 != 0)
+                {
+                    trimmed = trimmed.PadRight(trimmed.Length + (4 - mod4), '=');
+                }
+
+                var raw = Convert.FromBase64String(trimmed);
+                // Decode as UTF-16LE
+                var decoded = Encoding.Unicode.GetString(raw);
+                // Heuristic: if decoded is non-empty and contains printable characters, use it
+                if (!string.IsNullOrEmpty(decoded))
+                {
+                    return decoded;
+                }
+            }
+            catch
+            {
+                // Not base64 or not decodable as UTF-16LE; fall back to original
+            }
+
+            return incoming;
         }
 
         private static string HashPassword(string password)
