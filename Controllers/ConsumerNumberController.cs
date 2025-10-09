@@ -56,20 +56,20 @@ namespace SmartPayMobileApp_Backend.Controllers
             }
         }
 
-        [HttpGet("{consumerNumberId}")]
-        public async Task<ActionResult<ConsumerNumberDto>> GetConsumerNumber(int consumerNumberId)
-        {
-            try
-            {
-                var consumerNumber = await _consumerNumberService.GetByIdAsync(consumerNumberId);
-                if (consumerNumber == null) return NotFound();
-                return Ok(consumerNumber);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error fetching consumer number {consumerNumberId}", consumerNumberId);
-                return StatusCode(500, "Internal server error");
-            }
-        }
+        //[HttpGet("{consumerNumberId}")]
+        //public async Task<ActionResult<ConsumerNumberDto>> GetConsumerNumber(int consumerNumberId)
+        //{
+        //    try
+        //    {
+        //        var consumerNumber = await _consumerNumberService.GetByIdAsync(consumerNumberId);
+        //        if (consumerNumber == null) return NotFound();
+        //        return Ok(consumerNumber);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(ex, "Error fetching consumer number {consumerNumberId}", consumerNumberId);
+        //        return StatusCode(500, "Internal server error");
+        //    }
+        //}
     }
 }

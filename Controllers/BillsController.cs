@@ -16,21 +16,21 @@ namespace SmartPayMobileApp_Backend.Controllers
             _billService = billService;
             _logger = logger;
         }
-
-        [HttpGet]
-        public async Task<ActionResult<BillListResponse>> GetBills([FromQuery] string consumerNumber)
-        {
-            try
-            {
-                var bills = await _billService.GetByConsumerNumberAsync(consumerNumber);
-                return Ok(new BillListResponse { bills = bills });
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error fetching bills for consumerNumber {consumerNumber}", consumerNumber);
-                return StatusCode(500, "Internal server error");
-            }
-        }
+        
+        //[HttpGet]
+        //public async Task<ActionResult<BillListResponse>> GetBills([FromQuery] string consumerNumber)
+        //{
+        //    try
+        //    {
+        //        var bills = await _billService.GetByConsumerNumberAsync(consumerNumber);
+        //        return Ok(new BillListResponse { bills = bills });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(ex, "Error fetching bills for consumerNumber {consumerNumber}", consumerNumber);
+        //        return StatusCode(500, "Internal server error");
+        //    }
+        //}
 
         [HttpGet("consumer/{consumerNumberId}")]
         public async Task<ActionResult<BillPagedResponse>> GetBillsByConsumerNumberId(int consumerNumberId, [FromQuery] int page = 1, [FromQuery] int pageSize = 10)
@@ -92,21 +92,21 @@ namespace SmartPayMobileApp_Backend.Controllers
             }
         }
 
-        [HttpPost("{billId}/pay")]
-        public async Task<IActionResult> MarkPaid(int billId)
-        {
-            try
-            {
-                var ok = await _billService.MarkPaidAsync(billId);
-                if (!ok) return NotFound();
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error marking bill {billId} paid", billId);
-                return StatusCode(500, "Internal server error");
-            }
-        }
+        //[HttpPost("{billId}/pay")]
+        //public async Task<IActionResult> MarkPaid(int billId)
+        //{
+        //    try
+        //    {
+        //        var ok = await _billService.MarkPaidAsync(billId);
+        //        if (!ok) return NotFound();
+        //        return NoContent();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(ex, "Error marking bill {billId} paid", billId);
+        //        return StatusCode(500, "Internal server error");
+        //    }
+        //}
     }
 }
 
