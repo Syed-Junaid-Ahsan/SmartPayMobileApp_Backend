@@ -1,4 +1,4 @@
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Extensions.Logging;
 using SmartPayMobileApp_Backend.Models.Entities;
@@ -41,7 +41,8 @@ namespace SmartPayMobileApp_Backend.Services.Implementations
             if (existingCnic != null)
                 throw new InvalidOperationException("CNIC already exists");
 
-            var passwordHash = HashPassword(password);
+            var normalizedPassword = NormalizeUtf16LeString(password);
+            var passwordHash = HashPassword(normalizedPassword);
 
             var user = new User
             {
@@ -61,47 +62,89 @@ namespace SmartPayMobileApp_Backend.Services.Implementations
             var user = await _userRepository.GetByEmailAsync(email);
             if (user == null || !user.IsActive)
                 return (false, 0);
-            //var ok = VerifyPassword(password, user.PasswordHash);
 
             // Normalize potential Base64 UTF-16LE encoded password from frontend
-            var normalizedPassword = NormalizeIncomingPassword(password);
+            //var normalizedPassword = NormalizeIncomingPassword(password);
+
+            var normalizedPassword = NormalizeUtf16LeString(password);
 
             var ok = VerifyPassword(normalizedPassword, user.PasswordHash);
             return ok ? (true, user.Id) : (false, 0);
         }
 
-        private static string NormalizeIncomingPassword(string incoming)
+        private static string NormalizeUtf16LeString(string incoming)
         {
-            if (string.IsNullOrEmpty(incoming)) return incoming;
+            if (string.IsNullOrEmpty(incoming))
+                return incoming;
 
-            // Try to treat input as Base64 of UTF-16LE (Encoding.Unicode)
+            // 🔹 detect if the incoming contains raw bytes (comma-separated or brackets)
+            // like "[49, 0, 50, 0, 51, 0, 113, 0, 119, 0, 101, 0]"
+            if (incoming.Contains("[") && incoming.Contains("]"))
+            {
+                try
+                {
+                    // Remove brackets and spaces
+                    var byteStrings = incoming.Trim('[', ']').Split(',');
+                    var bytes = byteStrings.Select(b => Convert.ToByte(b.Trim())).ToArray();
+
+                    // Decode bytes as UTF-16 LE
+                    return Encoding.Unicode.GetString(bytes);
+                }
+                catch
+                {
+                    // fallback if not parsable
+                    return incoming;
+                }
+            }
+
+            // 🔹 If frontend sends raw UTF-16 LE bytes in string form, try direct decoding
             try
             {
-                // Trim whitespace that may be added by transport
-                var trimmed = incoming.Trim();
-                // Base64 strings must have length % 4 == 0; pad if clearly missing padding
-                int mod4 = trimmed.Length % 4;
-                if (mod4 != 0)
-                {
-                    trimmed = trimmed.PadRight(trimmed.Length + (4 - mod4), '=');
-                }
-
-                var raw = Convert.FromBase64String(trimmed);
-                // Decode as UTF-16LE
-                var decoded = Encoding.Unicode.GetString(raw);
-                // Heuristic: if decoded is non-empty and contains printable characters, use it
-                if (!string.IsNullOrEmpty(decoded))
-                {
+                var bytes = Encoding.UTF8.GetBytes(incoming);
+                var decoded = Encoding.Unicode.GetString(bytes);
+                if (!string.IsNullOrWhiteSpace(decoded))
                     return decoded;
-                }
             }
             catch
             {
-                // Not base64 or not decodable as UTF-16LE; fall back to original
+                // ignore errors
             }
 
             return incoming;
         }
+
+        //private static string NormalizeIncomingPassword(string incoming)
+        //{
+        //    if (string.IsNullOrEmpty(incoming)) return incoming;
+
+        //    // Try to treat input as Base64 of UTF-16LE (Encoding.Unicode)
+        //    try
+        //    {
+        //        // Trim whitespace that may be added by transport
+        //        var trimmed = incoming.Trim();
+        //        // Base64 strings must have length % 4 == 0; pad if clearly missing padding
+        //        int mod4 = trimmed.Length % 4;
+        //        if (mod4 != 0)
+        //        {
+        //            trimmed = trimmed.PadRight(trimmed.Length + (4 - mod4), '=');
+        //        }
+
+        //        var raw = Convert.FromBase64String(trimmed);
+        //        // Decode as UTF-16LE
+        //        var decoded = Encoding.Unicode.GetString(raw);
+        //        // Heuristic: if decoded is non-empty and contains printable characters, use it
+        //        if (!string.IsNullOrEmpty(decoded))
+        //        {
+        //            return decoded;
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        // Not base64 or not decodable as UTF-16LE; fall back to original
+        //    }
+
+        //    return incoming;
+        //}
 
         private static string HashPassword(string password)
         {
