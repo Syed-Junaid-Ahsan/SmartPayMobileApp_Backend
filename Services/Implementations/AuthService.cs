@@ -193,7 +193,7 @@ namespace SmartPayMobileApp_Backend.Services.Implementations
         private static bool IsValidPhoneNumber(string phoneNumber)
         {
             // exactly 13 digits
-            var regex = new System.Text.RegularExpressions.Regex("^(?:\\+92|0)[0-9]{10}$");
+            var regex = new System.Text.RegularExpressions.Regex("^(?:92|0)[0-9]{10}$");
             return regex.IsMatch(phoneNumber);
         }
     }
