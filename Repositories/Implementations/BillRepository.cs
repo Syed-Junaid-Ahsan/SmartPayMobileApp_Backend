@@ -48,7 +48,7 @@ namespace SmartPayMobileApp_Backend.Repositories.Implementations
             if (pageSize < 1) pageSize = 10;
 
             var query = _context.Bills.Where(b => b.ConsumerNumberId == consumerNumberId)
-                .OrderByDescending(b => b.IssueDate);
+                .OrderBy(b => b.DueDate);
 
             var totalCount = await query.CountAsync();
             var items = await query.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
